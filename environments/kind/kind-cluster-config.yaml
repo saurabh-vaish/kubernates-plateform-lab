@@ -1,0 +1,95 @@
+# =============================================================================
+# File:
+#   environments/kind/cluster-config.yaml
+#
+# Purpose:
+#   Creates the primary Kubernetes cluster used throughout the Platform Lab.
+#
+# Design Goals:
+#   - Reproducible
+#   - Multi-node
+#   - Production-like topology
+#   - Easy to recreate
+#
+# Production Equivalent:
+#   kubeadm cluster configuration
+#   OR
+#   Managed control plane in AWS EKS
+#
+# NOTE
+#
+# This file is intentionally verbose.
+#
+# Every section is documented because this repository is both
+# infrastructure code and learning material.
+#
+# =============================================================================
+
+kind: Cluster
+
+# Kind API version.
+#
+# This defines the schema understood by Kind.
+#
+apiVersion: kind.x-k8s.io/v1alpha4
+
+# -----------------------------------------------------------------------------
+# Cluster Nodes
+#
+# One control plane
+# Three worker nodes
+#
+# Why?
+#
+# • Demonstrate scheduling
+# • Rolling updates
+# • Pod distribution
+# • Node failures
+# • DaemonSets
+# • Affinity
+# • Anti-Affinity
+#
+# -----------------------------------------------------------------------------
+
+nodes:
+
+  # ===========================================================================
+  # Control Plane
+  # ===========================================================================
+  #
+  # Runs:
+  #
+  # - kube-apiserver
+  # - etcd
+  # - kube-scheduler
+  # - kube-controller-manager
+  #
+  # In production (EKS):
+  #
+  # AWS manages this node for us.
+  #
+  - role: control-plane
+
+  # ===========================================================================
+  # Worker Node 1
+  # ===========================================================================
+  #
+  # Runs application workloads.
+  #
+  - role: worker
+
+  # ===========================================================================
+  # Worker Node 2
+  # ===========================================================================
+  #
+  # Used later for scheduling demonstrations.
+  #
+  - role: worker
+
+  # ===========================================================================
+  # Worker Node 3
+  # ===========================================================================
+  #
+  # Used for high availability exercises.
+  #
+  - role: worker

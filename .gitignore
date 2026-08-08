@@ -1,0 +1,56 @@
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Local env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+!*.key.example
+secrets/
+**/secrets.local.yaml
+**/secret*.local.yaml
+
+# Kubernetes / kubeconfig
+kubeconfig*
+!.kubeconfig.example
+*.kubeconfig
+
+# Terraform / cloud
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+.terraform.lock.hcl
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+npm-debug.log*
+dist/
+build/
+
+# Archives / local scratch (keep archive/ tracked; ignore nested dumps)
+*.log
+*.tmp
+tmp/
+.cache/
+
+# Kind / cluster artifacts
+kind-config.local.yaml
+cluster-info/
