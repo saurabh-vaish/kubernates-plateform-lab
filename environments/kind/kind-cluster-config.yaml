@@ -1,6 +1,6 @@
 # =============================================================================
 # File:
-#   environments/kind/cluster-config.yaml
+#   environments/kind/kind-cluster-config.yaml
 #
 # Purpose:
 #   Creates the primary Kubernetes cluster used throughout the Platform Lab.
@@ -23,6 +23,23 @@
 # Every section is documented because this repository is both
 # infrastructure code and learning material.
 #
+#
+# Future additions:
+#
+# Sprint 2
+# - MetalLB
+#
+# Sprint 3
+# - Port Mapping
+#
+# Sprint 4
+# - Extra Mounts
+#
+# Sprint 5
+# - Registry Mirror
+#
+# Sprint 6
+# - Audit Configuration
 # =============================================================================
 
 kind: Cluster
@@ -68,7 +85,12 @@ nodes:
   #
   # AWS manages this node for us.
   #
+  # why image and version are being repeated ? 
+  # To ensure reproducibility and consistency across all nodes. and in case of any future changes to the image or version, we can easily update it in one place.
+  # and also to avoid any potential issues with the image or version.
+  #
   - role: control-plane
+    image: kindest/node:v1.34.0
 
   # ===========================================================================
   # Worker Node 1
@@ -77,6 +99,7 @@ nodes:
   # Runs application workloads.
   #
   - role: worker
+    image: kindest/node:v1.34.0
 
   # ===========================================================================
   # Worker Node 2
@@ -85,6 +108,7 @@ nodes:
   # Used later for scheduling demonstrations.
   #
   - role: worker
+    image: kindest/node:v1.34.0
 
   # ===========================================================================
   # Worker Node 3
@@ -93,3 +117,4 @@ nodes:
   # Used for high availability exercises.
   #
   - role: worker
+    image: kindest/node:v1.34.0
