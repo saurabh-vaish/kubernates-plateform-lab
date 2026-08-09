@@ -1,0 +1,46 @@
+# =============================================================================
+# File:
+#   labs/sprint-01/api-reconciliation/deployment.yaml
+#
+# Purpose:
+#   Demonstrate Kubernetes desired state and reconciliation.
+#
+# Experiment:
+#   We will request 3 replicas, delete one Pod manually, and observe the
+#   Deployment/ReplicaSet controllers recreate it.
+# =============================================================================
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: reconciliation-demo
+
+spec:
+  # ---------------------------------------------------------------------------
+  # DESIRED STATE
+  #
+  # We are telling Kubernetes:
+  #
+  # "I want exactly three replicas of this workload."
+  # ---------------------------------------------------------------------------
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: reconciliation-demo
+
+  template:
+    metadata:
+      labels:
+        app: reconciliation-demo
+
+    spec:
+      containers:
+        - name: nginx
+
+          # Pin the image rather than using :latest.
+          image: nginx:1.29
+
+          ports:
+            - containerPort: 80
